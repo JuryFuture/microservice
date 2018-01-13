@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: microservice-discovery-eureka
+#单机配置
+#server:
+#  port: 8671
+#eureka:
+#  client:
+#    registerWithEureka: false
+#    fetchRegistry: false
+#    serviceUrl:
+#      defaultZone: http://localhost:8671/eureka/
+
+#集群配置
+---
+spring:
+  profiles: peer1
+
+server:
+  port: 8671
+
+eureka:
+  instance:
+    hostname: peer1
+
+  client:
+    serviceUrl:
+      #将自己注册到peer2的Eureka上去
+      defaultZone: http://peer2:8672/eureka/
+
+---
+spring:
+  profiles: peer2
+
+server:
+  port: 8672
+
+eureka:
+  instance: peer2
+
+  client:
+    serviceUrl:
+      #将自己注册到peer1的Eureka上去
+      defaultZone: http://peer1:8671/eureka/
