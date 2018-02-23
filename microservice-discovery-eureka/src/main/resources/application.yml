@@ -36,7 +36,8 @@ server:
   port: 8672
 
 eureka:
-  instance: peer2
+  instance:
+    hostname: peer2
 
   client:
     serviceUrl:
